@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.2.0"
+  },
+  "name": "assignment2",
+  "version": "1.0.0",
+  "description": "Assignment 2 Winter 2021",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Davinder Verma",
+  "license": "MIT"
+}

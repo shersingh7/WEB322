@@ -1,0 +1,161 @@
+/* CSS for base */
+html
+{
+    margin: 0px;
+    padding: 0px;
+}
+
+body
+{
+    line-height: 1.7rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.logo
+{
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+.logo img
+{
+    border-radius: 25%;
+}
+
+header
+{
+    background-color: red;
+    position: sticky;
+    width: 100%;
+}
+
+.links
+{
+    border-style: solid;
+    border-color: darkred;
+}
+
+header a
+{
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+/* Main  */
+
+.heroSection
+{
+    position: relative;
+    margin-top: 50px;
+}
+
+.textOnImage
+{
+    text-align: center;
+    color: white;
+    font-size: 150%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.textOnImage button
+{
+    background-color: orangered;
+    font-size: 25px;
+}
+
+a:hover
+{
+    color: white;
+}
+
+
+.contentSection
+{
+    display: flex;
+    background-color: lightpink;
+}
+
+.contentSection img
+{
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+}
+
+.topMeals img
+{
+    height: 200px;
+    width: 350px;
+    display: flex;
+}
+
+.topMeals
+{
+    float: left;
+    margin-left: 25px;
+    background-color: lightcoral;
+    margin-bottom: 25px ;
+    
+}
+
+.topMeals > div
+{
+    padding: 15px;
+    font-size: 1.5rem;
+}
+
+.topMeals h4
+{
+    color: blue;
+    margin: 0%;
+}
+
+.topMeals p
+{
+    margin:0%;
+}
+
+/* Footer */
+footer a
+{
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.center
+{
+    text-align: center;
+    padding: 10px;
+}
+
+
+footer
+{
+    margin-top: 50px;
+    background-color: red;
+    padding: 5px;
+}
+
+.myfooter
+{
+    float: left;
+    margin: 25px;
+    padding-left:150px;
+    color: black;
+    font-weight: bolder;
+}
+
+.copyright
+{
+    padding-left:10px ;
+    font-weight: bolder;
+}

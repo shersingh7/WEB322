@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test #2 - WEB322</title>
+</head>
+<body>
+
+    <h1>Test #2 - WEB322</h1>
+
+    <h2 style="margin-top: 3rem;">PART A</h2>
+    <p>You have successfully completed part A if you can see this screen.</p>
+
+    <h2 style="margin-top: 3rem;">PART B</h2>
+    <p>If successfully completed, each link should work and return the correctly formatted JSON object:</p>
+    <ul>
+        <li><a href="/employee-list">All Employees</a> &mdash; {message:"all employees"}</li>
+        <li><a href="/employee-list?department=Sales">Sales Employees</a> &mdash; {message:"Sales"}</li>
+        <li><a href="/employee-list?company=Amazon">Amazon Employees</a> &mdash; {message:"Amazon"}</li>
+    </ul>
+
+    <h2 style="margin-top: 3rem;">PART C</h2>
+    <p>If successfully completed, each link should work and return the correctly formatted JSON object:</p>
+    <ul>
+        <li><a href="/employee/123456789">Employee 123456789</a> &mdash; {message:"123456789"}</li>
+        <li><a href="/employee/234567890">Employee 234567890</a> &mdash; {message:"234567890"}</li>
+    </ul>
+
+
+    <h2 style="margin-top: 3rem;">PART D</h2>
+    <p>If successfully completed, you will receive an HTTP 404 error page, not an Express error</p>
+    <ul>
+        <li><a href="/invalid-link">Invalid Link</a> &mdash; "Page Not Found"</li>
+        <li><a href="/another-invalid-link">Another Invalid Link</a> &mdash; "Page Not Found"</li>
+    </ul>
+</body>
+</html>
