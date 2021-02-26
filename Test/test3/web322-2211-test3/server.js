@@ -30,7 +30,6 @@ app.set('view engine', '.hbs');
 
 // ******** DO NOT CHANGE ANYTHING ABOVE THIS LINE (EXCEPT THE HEADER) ********
 
-const router = express.Router();
 
 
 // ****** QUESTION #1 - 10 MARKS ******
@@ -39,7 +38,7 @@ const router = express.Router();
 // Create a "GET" route at the default url "/" (eg. http://localhost/)
 // and send the handlebars view "home.hbs".  You must pass the array
 // to the view.  You will use this array for part 1B.
-router.get("/", function(req,res){
+app.get("/", function(req,res){
     let dataToShow = [
         { employeeId: 321, fullName: "Cameron Gray", isManager: false },
         { employeeId: 654, fullName: "Kathy Dumanski", isManager: true },
@@ -82,15 +81,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // *** PART 2C - 1 Mark ***
 // Create a "GET" route at the url "/addStudent" (eg. http://localhost/addStudent)
 // and send the handlebars view "addStudent.hbs".
-router.get("/addStudent", function(req,res){
-
+app.get("/addStudent", function(req,res){
+    res.render("addStudent");
 });
 
 // *** PART 2D - 5 Marks ***
 // Create a "POST" route at the url "/addStudent" and return a JSON formatted string.
 // The response will differ if the fullName field is valid or not.
 // (HINT: your response will return a JSON literal object using res.json(...))
-router.post("/addStudent", (req, res) => {
+app.post("/addStudent", (req, res) => {
 
     const { fullName, studentNum, program } = req.body;
 
@@ -102,10 +101,10 @@ router.post("/addStudent", (req, res) => {
     //      - has been specified (in otherwords, it is not an empty string)
     //      - it has a minimum length of 2 characters.
 
-    if (typeof fullName !== "string" || firstName.length === 0) {
+    if (typeof fullName !== "string" || fullName.length === 0) {
         passedValidation = false;
     }
-    else if (firstName.length < 2) {
+    else if (fullName.length < 2) {
         passedValidation = false;
     }
 

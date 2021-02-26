@@ -28,19 +28,21 @@
 
 
     {{#each data}}
-        {{data.employeeId}}
-        {{data.fullName}}
-            {{#if isManager}}
+    
             <tr>
+                <td>{{employeeId}}</td>
+
+                <td>{{fullName}}</td>
+            {{#if isManager}}
+
                 <td>Yes</td>
             </tr>
-            {{/if}}
+
 
             {{else}}
-            <tr>
-                <td>No</td>
-            </tr>
-             {{else}}          
+                    <td>No</td>
+                </tr>
+            {{/if}}
     {{/each}}
             <!--
                 *** 8 Marks ***
