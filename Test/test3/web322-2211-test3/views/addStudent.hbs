@@ -1,0 +1,64 @@
+<!--
+// *** Fill in your information ***
+// Full Name: Davinder Verma
+// Student #: 121802201
+// Seneca Email: dverma22@myseneca.ca
+// Class: WEB322 NDD
+// ********************************
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test #3 - QUESTION 2</title>
+</head>
+<body>
+    <h1>Test #3 - Add Student Form</h1>
+
+    <!-- 2 Marks - Configure the form so it posts back to the "/addStudent" URL. -->
+    <form method="POST", action="/addStudent">
+
+        <!-- 2 Marks - Add the "studentNum" text box below the label -->
+        <p>
+            <label for="studentNum">Student Number</label><br/>
+            <input type="text" id="studentNum" name="studentNum"/><br/>
+            
+        </p>
+
+
+        <!-- 2 Marks - Add the "fullName" text box below the label -->
+        <p>
+            <label for="fullName">First &amp; Last Name</label><br/>
+            <input type="text" id="fullName" name="fullName"/><br/>
+        </p>
+
+
+        <!--
+             3 Marks - Add the "program" list box below the label.
+                       The list box must contain the items "CPA", "CPD", and "CNS / CTY"
+                       and it must have a height of three rows.
+        -->
+        <p>
+            <label for="program">Program</label><br/>
+                <select name="program" id="program">
+                <option value="CPA">CPA</option>
+                <option value="CPD">CPD</option>
+                <option value="CNS / CTY">CNS / CTY</option>
+                </select>
+        </p>
+        
+
+        <hr/>
+
+
+        <!--
+             1 Mark - Add a button to submit the form.
+                      The button will contain the text "Add Student"
+        -->
+            <input type="submit" value="Add Student"/>
+
+
+
+    </form>
+</body>
+</html>

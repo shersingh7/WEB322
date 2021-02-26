@@ -1,0 +1,63 @@
+<!--
+// *** Fill in your information ***
+// Full Name: Davinder Verma
+// Student #: 121802201
+// Seneca Email: dverma22@myseneca.ca
+// Class: WEB322 NDD
+// ********************************
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test #3 - QUESTION 1</title>
+</head>
+<body>
+
+    <h1>Test #3 - Home Page</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <td>Employee ID</td>
+                <td>Name</td>
+                <td>Manager?</td>
+            </tr>
+        </thead>
+        <tbody>
+
+
+    {{#each data}}
+        {{data.employeeId}}
+        {{data.fullName}}
+            {{#if isManager}}
+            <tr>
+                <td>Yes</td>
+            </tr>
+            {{/if}}
+
+            {{else}}
+            <tr>
+                <td>No</td>
+            </tr>
+             {{else}}          
+    {{/each}}
+            <!--
+                *** 8 Marks ***
+                For each object in the array populate the html table.  Show the employeeId,
+                fullName, and the text "Yes" (when isManager value is true) otherwise show "No".
+                Ensure each value is represented in the correct table column.
+
+                If there is no data, show the message "No Data" spanning all three columns.
+            -->
+
+
+        </tbody>
+    </table>
+
+    <p>
+        <a href="/addStudent">Go to Question #2</a>
+    </p>
+
+</body>
+</html>
