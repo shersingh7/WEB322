@@ -1,6 +1,30 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require("mongoose");
 const foodItemsModule = require("../models/foodItemsLists");
+
+//Connect to MongoDB
+mongoose.connect("mongodb+srv://davinderverma:Sydney@2021@web322.v53z3.mongodb.net/web322MealKits?retryWrites=true&w=majority", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true
+}
+);
+
+// Define our Models
+const Schema = mongoose.Schema;
+
+const NameSchema = new Schema({
+  "fname": String,
+  "lname": String,
+  "email": {
+      "type": String,
+      "unique": true
+  },
+  "password": String
+});
+
+var NameModel = mongoose.model("names", NameSchema);
 
 router.get("/", function(req, res){
  
@@ -22,9 +46,13 @@ router.get("/registration", function(req, res){
 
 router.post("/welcome", function(req, res){
 
-  //res.render("general/welcome");
-  //name: res.fname;
-  //res.send(req.body);
+  var newName = new NameModel({
+    lname: req.body.lfame,
+    fname: req.body.fname,
+    email: req.body.email,
+    password: req.body.password
+});
+
   const { fname, lname, email, password } = req.body;
 
   let validationResults = {};
@@ -74,7 +102,13 @@ router.post("/welcome", function(req, res){
 
   if(passedValidation)
   {
-    const sgMail = require("@sendgrid/mail");
+    newName.save((err)=>{
+      if (err) {
+        console.log("Couldn't create the new name:" + err);
+    }
+    else {
+        console.log("Successfully created a new name: " + newName.fname);
+       const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
 
     const msg = {
@@ -85,6 +119,9 @@ router.post("/welcome", function(req, res){
             `Welcome to Desi Khana ${fname} ${lname}<br>
             My name is Davinder Verma and you have visited Desi Khana`
     };
+    }
+    });
+ 
 
     // Asyncronously sends the email message.
     sgMail.send(msg)
