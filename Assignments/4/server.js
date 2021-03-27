@@ -16,8 +16,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/static"));
 
 const generalController = require("./controllers/general");
+const registrationController = require("./controllers/registration");
+const loginController = require("./controllers/login");
 
 app.use("/", generalController);
+app.use("/registration", registrationController);
+app.use("/login", loginController);
 
 app.engine('.hbs', exphbs({
   extname: '.hbs',
