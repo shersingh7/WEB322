@@ -2,6 +2,10 @@
 
 <section class="loginIn">
     
+    {{#each errors}}
+        <p style="color: red;">{{this}}</p>
+    {{/each}}
+    
     <form action="/login" method="POST">
 
         <div class="loginIn">
