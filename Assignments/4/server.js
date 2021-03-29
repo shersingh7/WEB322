@@ -21,18 +21,13 @@ app.use(fileUpload());
 
 app.use(express.static(__dirname + "/static"));
 
-const generalController = require("./controllers/general");
-const registrationController = require("./controllers/registration");
-const loginController = require("./controllers/login");
-
-app.use("/", generalController);
-app.use("/registration", registrationController);
-app.use("/login", loginController);
-
 app.engine('.hbs', exphbs({
   extname: '.hbs',
   defaultLayout: 'main'
 }));
+
+app.set('view engine', '.hbs');
+
 
 // Set up express-session
 app.use(session({
@@ -47,6 +42,16 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user;
   next();
 });
+
+
+
+const generalController = require("./controllers/general");
+const registrationController = require("./controllers/registration");
+const loginController = require("./controllers/login");
+
+app.use("/", generalController);
+app.use("/registration", registrationController);
+app.use("/login", loginController);
 
 // Set up and connect to MongoDB
 mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, {

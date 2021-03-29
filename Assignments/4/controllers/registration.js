@@ -4,7 +4,6 @@ const path = require("path");
 const NameModel = require('../models/registration');
 const mongoose = require("mongoose");
 
-//const userModel = require('../models/registration');
 const router = express.Router();
 
 //Connect to MongoDB
@@ -22,7 +21,7 @@ router.get("/", function(req, res){
 router.post("/", function(req, res){
   
     const newName = new NameModel({
-      lname: req.body.lfame,
+      lname: req.body.lname,
       fname: req.body.fname,
       email: req.body.email,
       password: req.body.password
@@ -117,4 +116,5 @@ router.post("/", function(req, res){
     }
     
 });
+
   module.exports = router;

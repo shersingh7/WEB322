@@ -4,7 +4,9 @@ const path = require("path");
 const NameModel = require('../models/registration');
 const mongoose = require("mongoose");
 
-//const NameModel = require('../models/registration');
+const session = require('express-session');
+
+
 const router = express.Router();
 
 //Connect to MongoDB
@@ -21,22 +23,27 @@ router.get("/", function(req, res){
   
   router.post("/", function(req, res){
     
-      /*const { email, password, customer, clerk } = req.body;*/
-  
-    //let validationResults = {};
+    const newName = new NameModel({
+      lname: req.body.lfame,
+      fname: req.body.fname,
+      email: req.body.email,
+      password: req.body.password
+  });
+     
+  let validationResults = {};
     let passedValidation = true;
   
-   /* if(typeof login.email !== "string" || email.length === 0)
+    if(typeof newName.email !== "string" || newName.email.length === 0)
     {
       validationResults.email = "Enter correct email address.";
       passedValidation = false;
     }
   
-    if(typeof password !== "string" || password.length === 0)
+    if(typeof newName.password !== "string" || newName.password.length === 0)
     {
       validationResults.password = "Enter correct Password.";
       passedValidation = false;
-    }*/
+    }
   
     if(passedValidation)
     {
@@ -46,20 +53,23 @@ router.get("/", function(req, res){
       NameModel.findOne({
           email: req.body.email
       })
-      .then((user) => {
-          if (user) {
+      .then((newName) => {
+          if (newName) {
               // User was found, compare the password in the database
               // with the password submitted by the user.
-              bcrypt.compare(req.body.password, user.password)
+              bcrypt.compare(req.body.password, newName.password)
               .then((isMatched) => {
                   if (isMatched) {
                       // Password is matched.
   
                       // Create a new session and set the user to the
                       // "user" object returned from the DB.
-                     req.session.user = user;
-  
-                      res.redirect("/");
+                     req.session.user = newName;
+
+
+                     if (req.body.clerk) res.redirect("/clerk");
+                     if (req.body.customer) res.redirect("/customer");
+                    
                   }
                   else {
                       // Password does not match.
@@ -115,7 +125,7 @@ router.get("/", function(req, res){
     // Clear the session from memory.
     req.session.destroy();
     
-    res.redirect("/general/login");
+    res.redirect("/login");
   });
   
 

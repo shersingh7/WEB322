@@ -20,4 +20,12 @@ router.get("/welcome", function(req, res){
   res.render("general/welcome");
 });
 
+router.get("/clerk", function(req, res){
+  res.render("general/clerk");
+});
+
+router.get("/customer", function(req, res){
+  res.render("general/customer");
+});
+
 module.exports = router;
