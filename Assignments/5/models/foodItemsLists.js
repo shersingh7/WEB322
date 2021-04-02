@@ -15,7 +15,7 @@ const mealKit = new Schema({
         type: String,
         required: true
     },
-    desc: 
+    description: 
     {
         type: String,
         required: true
@@ -30,7 +30,7 @@ const mealKit = new Schema({
         type: Number,
         required: true
     },
-    cTime: 
+    cookingTime: 
     {
         type: Number,
         required: true
@@ -50,10 +50,9 @@ const mealKit = new Schema({
         type: Boolean,
         required: true
     },
-    mealPhoto:
+    photo:
     {
         type: String,
-        required: true
     }
 
 });

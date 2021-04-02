@@ -67,7 +67,7 @@ router.get("/", function(req, res){
                      req.session.user = newName;
 
 
-                     if (req.body.clerk) res.redirect("/load-data");
+                     if (req.body.clerk) res.redirect("/load-data/meal-kits");
                      if (req.body.customer) res.redirect("/customer");
                     
                   }

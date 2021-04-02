@@ -6,7 +6,21 @@
 <div class="onTheMenu">
     {{#each classic}}
             <div class="grid">
+                 
                  {{>food this}}
+                 
+                 {{#if user}}
+
+                    <a href="/update">
+                        <button>Update</button>
+                    </a>
+
+                    <a href="/delete" style="margin-left:10px">
+                        <button>Delete</button>
+                    </a>
+
+                {{/if}}
+                    
             </div>
     {{/each}} 
 

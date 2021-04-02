@@ -60,7 +60,7 @@ router.get("/welcome", function(req, res){
   res.render("general/welcome");
 });
 
-router.get("/clerk", function(req, res){
+router.get("/load-data", function(req, res){
   res.render("general/clerk");
 });
 

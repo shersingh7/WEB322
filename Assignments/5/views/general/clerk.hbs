@@ -28,8 +28,8 @@
 
         <div class="addMealKit">
 
-            <label for="desc">Description:</label><br>
-            <textarea id="desc" name="desc" rows="4" cols="50"></textarea>
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description" rows="4" cols="50"></textarea>
 
         </div>
 
@@ -59,8 +59,8 @@
         
         <div class="addMealKit">
 
-            <label for="cTime">Cooking Time:</label><br>
-            <input type="text" id="cTime" name="cTime" >
+            <label for="cookingTime">Cooking Time:</label><br>
+            <input type="text" id="cookingTime" name="cookingTime" >
 
         </div>
 
@@ -101,7 +101,7 @@
         <div class="addMealKit">
 
             <label>Upload a photo if the meal kit</label>
-            <input type="file" name="mealPhoto" id="mealPhoto"> <br><br>
+            <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
 
         </div>
         
@@ -110,6 +110,11 @@
         <div class="submitBtn">
             <input type="submit" value="Add the meal">
         </div>
+
+        {{#each result}}
+           <p style="color: red;">{{this}}</p>
+        {{/each}}
+
 
     </form>
 
