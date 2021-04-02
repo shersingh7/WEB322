@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const mealSchema = new Schema({
+const mealKit = new Schema({
 
     title: 
     {
@@ -59,6 +59,6 @@ const mealSchema = new Schema({
 });
 
 
-const dataModel = mongoose.model("Meals", mealSchema);
+const mealModel = mongoose.model("Meals", mealKit);
 
-module.exports = dataModel;
+module.exports = mealModel;
