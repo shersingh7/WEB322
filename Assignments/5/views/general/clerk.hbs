@@ -6,7 +6,7 @@
             <p style="color: red;">{{this}}</p>
         {{/each}}
     
-    <form action="/load-data/meal-kits" method="POST">
+    <form action="/load-data/meal-kits" method="POST" enctype="multipart/form-data">
 
         <div class="addMealKit">
 
@@ -100,7 +100,7 @@
         
         <div class="addMealKit">
 
-            <label>Upload a photo if the meal kit</label>
+            <label>Upload a photo of the meal kit</label>
             <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
 
         </div>

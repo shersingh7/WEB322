@@ -12,7 +12,6 @@ mongoose.connect(process.env.MONGO_DB_CONNECTION_STRING, {
 }
 );
 
-
 router.get("/", function(req, res){
 
   foodItemsModule.find({topMeal: 'true'})
@@ -67,5 +66,7 @@ router.get("/load-data", function(req, res){
 router.get("/customer", function(req, res){
   res.render("general/customer");
 });
+
+
 
 module.exports = router;

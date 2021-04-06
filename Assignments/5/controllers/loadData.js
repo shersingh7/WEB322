@@ -5,10 +5,23 @@ const foodItemsModule = require("../models/foodItemsLists");
 const router = express.Router();
 
 router.get("/meal-kits", (req, res) => {
-    res.render("general/clerk");
+   if(global.userType === 'clerk') res.render("general/clerk");
+   else 
+   {
+       let errors=[];
+       errors.push("Only clerk can access this")
+  
+    res.render("general/login", {
+        errors
+
+    });  
+   }
 });
 
 router.post("/meal-kits", (req, res) => {
+
+    let result = [];
+
     const data = new foodItemsModule({
         title: req.body.title,
         wIncluded: req.body.wIncluded,
@@ -27,8 +40,8 @@ router.post("/meal-kits", (req, res) => {
             title: req.body.title,
         })
         .then((meal) => {
-            console.log(meal);
             if (meal) {
+
                 
                 result.push("Oops, the meal already exits in database!!!");
 
@@ -57,7 +70,7 @@ router.post("/meal-kits", (req, res) => {
                             foodItemsModule.updateOne({
                                 _id: mealSaved._id
                             }, {
-                                photo: req.files.photo.name
+                                photo: `./images/uploads/${req.files.photo.name}`
                             })
                             .then(() => {
                                 console.log("meal kit was updated with the meal pic file name.")
@@ -81,14 +94,35 @@ router.post("/meal-kits", (req, res) => {
                         res.redirect("/");
                     });
             };
-        });
                     
-        
+        });
 });
 
-router.get("/update", (req, res) => {
+router.post("/update", (req, res) => {
+
+    foodItemsModule.updateOne({
+        _id: req.body.id,
+    }, {
+        $set: {
+            title: req.body.title,
+            wIncluded: req.body.wIncluded,
+            description: req.body.description,
+            price: req.body.price,
+            cookingTime: req.body.cookingTime,
+            servings: req.body.servings,
+            calories: req.body.calories,
+        }
+    })
+    .exec()
+    .then(() => {
+        console.log("Successfully updated the Meal: " + req.body.title);
+        res.redirect("/"); // Redirect back to the home page
+    })
+    .catch((err)=>{
+        console.log(`Error updating meal to the database.  ${err}`);
+
+    })
     
-    //if()
 });
 
 module.exports = router;  

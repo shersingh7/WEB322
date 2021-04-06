@@ -52,7 +52,7 @@ const mealKit = new Schema({
     },
     photo:
     {
-        type: String,
+        type: String
     }
 
 });

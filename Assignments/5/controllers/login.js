@@ -3,11 +3,10 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 const NameModel = require('../models/registration');
 const mongoose = require("mongoose");
-
 const session = require('express-session');
-
-
 const router = express.Router();
+
+var userType = 'uk'; 
 
 //Connect to MongoDB
 mongoose.connect("mongodb+srv://davinderverma:Sydney@2021@web322.v53z3.mongodb.net/web322MealKits?retryWrites=true&w=majority", {
@@ -65,10 +64,14 @@ router.get("/", function(req, res){
                       // Create a new session and set the user to the
                       // "user" object returned from the DB.
                      req.session.user = newName;
-
-
-                     if (req.body.clerk) res.redirect("/load-data/meal-kits");
-                     if (req.body.customer) res.redirect("/customer");
+                    
+                     if (req.body.type == 'clerk') 
+                     {
+                       userType = 'clerk'; 
+                       res.redirect("/load-data/meal-kits");
+                      
+                      }
+                     if (req.body.type == 'customer') res.redirect("/customer");
                     
                   }
                   else {
@@ -128,7 +131,5 @@ router.get("/", function(req, res){
     res.redirect("/login");
   });
   
-
-
 
   module.exports = router;  

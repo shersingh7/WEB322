@@ -7,19 +7,74 @@
     {{#each classic}}
             <div class="grid">
                  
+                    <img src="{{photo}}">
+
+{{#if user}}
+
+   <form action="/load-data/update" method="POST">
+
+   <div class="updateMealKit">
+        <input type="hidden" id="custId" name="id" value="{{_id}}">
+            <label for="title" style="left: 0%;">Title:</label><br>
+
+      <input type="text" name="title" value="{{title}}">
+
+   </div>   
+
+   <div class="updateMealKit">
+            <label for="cookingTime">What is included:</label><br>
+
+      <input type="text" name="wIncluded" value="{{wIncluded}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="cookingTime">Cooking Time:</label><br>
+
+      <input type="text" name="description" value="{{description}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+
+            <label for="price">Price:</label><br>
+      <input type="text" name="price" value="{{price}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="cookingTime">Cooking Time:</label><br>
+      <input type="text" name="cookingTime" value="{{cookingTime}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="servings">Servings:</label><br>
+      <input type="text" name="servings" value="{{servings}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="calories">Calories Per Serving:</label><br>
+      <input type="text" name="calories" value="{{calories}}">
+
+   </div> 
+
+
+   <div class="updateMealKit">
+
+      <label>Change photo of the meal kit</label><br>
+      <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
+
+   </div>
+
+   <div class="submitBtn">
+      <input type="submit"  name="submit" value="Update">
+   </div>
+
+   </form>
+{{/if}}
                  {{>food this}}
-                 
-                 {{#if user}}
-
-                    <a href="/update">
-                        <button>Update</button>
-                    </a>
-
-                    <a href="/delete" style="margin-left:10px">
-                        <button>Delete</button>
-                    </a>
-
-                {{/if}}
                     
             </div>
     {{/each}} 
@@ -34,8 +89,79 @@
 
     {{#each starter}}
             <div class="grid">
-                 {{>food this}}
-            </div>
+                   <img src="{{photo}}">
+
+{{#if user}}
+
+   <form action="/load-data/update" method="POST">
+
+   <div class="updateMealKit">
+            <label for="title" style="left: 0%;">Title:</label><br>
+
+      <input type="text" id="title" value="{{title}}">
+
+   </div>   
+
+   <div class="updateMealKit">
+            <label for="cookingTime">Cooking Time:</label><br>
+
+      <input type="text" id="title" value="{{wIncluded}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="cookingTime">Cooking Time:</label><br>
+
+      <input type="text" id="title" value="{{description}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+
+            <label for="price">Price:</label><br>
+      <input type="text" id="title" value="{{price}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="cookingTime">Cooking Time:</label><br>
+      <input type="text" id="title" value="{{cookingTime}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="servings">Servings:</label><br>
+      <input type="text" id="title" value="{{servings}}">
+
+   </div>  
+
+   <div class="updateMealKit">
+            <label for="calories">Calories Per Serving:</label><br>
+      <input type="text" id="title" value="{{calories}}">
+
+   </div> 
+
+
+   <div class="updateMealKit">
+
+      <label>Change photo of the meal kit</label><br>
+      <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
+
+   </div>
+
+   <div class="submitBtn">
+      <input type="submit"  id="submit" value="Update">
+   </div>
+
+   </form>
+   {{else}}
+                    {{>food this}}
+      </div>
+
+
+   {{/if}}
+
+
     {{/each}} 
 
 </div>
