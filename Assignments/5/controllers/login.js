@@ -6,8 +6,6 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const router = express.Router();
 
-var userType = 'uk'; 
-
 //Connect to MongoDB
 mongoose.connect("mongodb+srv://davinderverma:Sydney@2021@web322.v53z3.mongodb.net/web322MealKits?retryWrites=true&w=majority", {
   useNewUrlParser: true,
@@ -26,7 +24,8 @@ router.get("/", function(req, res){
       lname: req.body.lfame,
       fname: req.body.fname,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password,
+      type: req.body.type
   });
      
   let validationResults = {};
@@ -63,13 +62,21 @@ router.get("/", function(req, res){
   
                       // Create a new session and set the user to the
                       // "user" object returned from the DB.
-                     req.session.user = newName;
+                      if(req.body.type == 'clerk')
+                      {
+                        req.session.user = {
+                       fname: newName.fname,
+                       lname: newName.lname,
+                       clerk: req.body.type
+                       };
+                      }
+                      else req.session.user = newName;
+
+
                     
                      if (req.body.type == 'clerk') 
                      {
-                       userType = 'clerk'; 
                        res.redirect("/load-data/meal-kits");
-                      
                       }
                      if (req.body.type == 'customer') res.redirect("/customer");
                     

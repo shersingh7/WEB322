@@ -4,80 +4,81 @@
 <h3 class="menuHeading">Classic Meals</h3>
 
 <div class="onTheMenu">
-    {{#each classic}}
-            <div class="grid">
-                 
-                    <img src="{{photo}}">
 
-{{#if user}}
-
-   <form action="/load-data/update" method="POST">
-
-   <div class="updateMealKit">
-        <input type="hidden" id="custId" name="id" value="{{_id}}">
-            <label for="title" style="left: 0%;">Title:</label><br>
-
-      <input type="text" name="title" value="{{title}}">
-
-   </div>   
-
-   <div class="updateMealKit">
-            <label for="cookingTime">What is included:</label><br>
-
-      <input type="text" name="wIncluded" value="{{wIncluded}}">
-
-   </div>  
-
-   <div class="updateMealKit">
-            <label for="cookingTime">Cooking Time:</label><br>
-
-      <input type="text" name="description" value="{{description}}">
-
-   </div>  
-
-   <div class="updateMealKit">
-
-            <label for="price">Price:</label><br>
-      <input type="text" name="price" value="{{price}}">
-
-   </div>  
-
-   <div class="updateMealKit">
-            <label for="cookingTime">Cooking Time:</label><br>
-      <input type="text" name="cookingTime" value="{{cookingTime}}">
-
-   </div>  
-
-   <div class="updateMealKit">
-            <label for="servings">Servings:</label><br>
-      <input type="text" name="servings" value="{{servings}}">
-
-   </div>  
-
-   <div class="updateMealKit">
-            <label for="calories">Calories Per Serving:</label><br>
-      <input type="text" name="calories" value="{{calories}}">
-
-   </div> 
+   {{#each result}}
+      <p style="color: red;">{{this}}</p>
+   {{/each}}
 
 
-   <div class="updateMealKit">
+   {{#each classic}} 
+    <div class="grid">
+      <img src="{{photo}}"> 
 
-      <label>Change photo of the meal kit</label><br>
-      <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
+      <form action="/load-data/update" method="POST">
 
-   </div>
+      <div class="updateMealKit">
+         <input type="hidden" id="custId" name="id" value="{{_id}}">
+               <label for="title" style="left: 0%;">Title:</label><br>
 
-   <div class="submitBtn">
-      <input type="submit"  name="submit" value="Update">
-   </div>
+         <input type="text" name="title" value="{{title}}">
+
+      </div>   
+
+      <div class="updateMealKit">
+               <label for="cookingTime">What is included:</label><br>
+
+         <input type="text" name="wIncluded" value="{{wIncluded}}">
+
+      </div>  
+
+      <div class="updateMealKit">
+               <label for="cookingTime">Cooking Time:</label><br>
+
+         <input type="text" name="description" value="{{description}}">
+
+      </div>  
+
+      <div class="updateMealKit">
+
+               <label for="price">Price:</label><br>
+         <input type="text" name="price" value="{{price}}">
+
+      </div>  
+
+      <div class="updateMealKit">
+               <label for="cookingTime">Cooking Time:</label><br>
+         <input type="text" name="cookingTime" value="{{cookingTime}}">
+
+      </div>  
+
+      <div class="updateMealKit">
+               <label for="servings">Servings:</label><br>
+         <input type="text" name="servings" value="{{servings}}">
+
+      </div>  
+
+      <div class="updateMealKit">
+               <label for="calories">Calories Per Serving:</label><br>
+         <input type="text" name="calories" value="{{calories}}">
+
+      </div> 
+
+
+      <div class="updateMealKit">
+
+         <label>Change photo of the meal kit</label><br>
+         <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
+
+      </div>
+
+      <div class="submitBtn">
+         <input type="submit"  name="submit" value="Update">
+      </div>
 
    </form>
-{{/if}}
-                 {{>food this}}
-                    
-            </div>
-    {{/each}} 
+</div> 
+
+{{/each}}  
 
 </div>
 
@@ -87,81 +88,76 @@
 
 <div class="onTheMenu">
 
-    {{#each starter}}
-            <div class="grid">
-                   <img src="{{photo}}">
+   {{#each result}}
+      <p style="color: red;">{{this}}</p>
+   {{/each}}
 
-{{#if user}}
+   {{#each starter}}
+      <div class="grid">
+         <img src="{{photo}}">
 
-   <form action="/load-data/update" method="POST">
+         <form action="/load-data/update" method="POST">
 
-   <div class="updateMealKit">
-            <label for="title" style="left: 0%;">Title:</label><br>
+      <div class="updateMealKit">
+         <input type="hidden" id="custId" name="id" value="{{_id}}">
+               <label for="title" style="left: 0%;">Title:</label><br>
 
-      <input type="text" id="title" value="{{title}}">
+         <input type="text" name="title" value="{{title}}">
 
-   </div>   
+      </div>   
 
-   <div class="updateMealKit">
-            <label for="cookingTime">Cooking Time:</label><br>
+      <div class="updateMealKit">
+               <label for="cookingTime">What is included:</label><br>
 
-      <input type="text" id="title" value="{{wIncluded}}">
+         <input type="text" name="wIncluded" value="{{wIncluded}}">
 
-   </div>  
+      </div>  
 
-   <div class="updateMealKit">
-            <label for="cookingTime">Cooking Time:</label><br>
+      <div class="updateMealKit">
+               <label for="cookingTime">Cooking Time:</label><br>
 
-      <input type="text" id="title" value="{{description}}">
+         <input type="text" name="description" value="{{description}}">
 
-   </div>  
+      </div>  
 
-   <div class="updateMealKit">
+      <div class="updateMealKit">
 
-            <label for="price">Price:</label><br>
-      <input type="text" id="title" value="{{price}}">
+               <label for="price">Price:</label><br>
+         <input type="text" name="price" value="{{price}}">
 
-   </div>  
+      </div>  
 
-   <div class="updateMealKit">
-            <label for="cookingTime">Cooking Time:</label><br>
-      <input type="text" id="title" value="{{cookingTime}}">
+      <div class="updateMealKit">
+               <label for="cookingTime">Cooking Time:</label><br>
+         <input type="text" name="cookingTime" value="{{cookingTime}}">
 
-   </div>  
+      </div>  
 
-   <div class="updateMealKit">
-            <label for="servings">Servings:</label><br>
-      <input type="text" id="title" value="{{servings}}">
+      <div class="updateMealKit">
+               <label for="servings">Servings:</label><br>
+         <input type="text" name="servings" value="{{servings}}">
 
-   </div>  
+      </div>  
 
-   <div class="updateMealKit">
-            <label for="calories">Calories Per Serving:</label><br>
-      <input type="text" id="title" value="{{calories}}">
+      <div class="updateMealKit">
+               <label for="calories">Calories Per Serving:</label><br>
+         <input type="text" name="calories" value="{{calories}}">
 
-   </div> 
+      </div> 
 
 
-   <div class="updateMealKit">
+      <div class="updateMealKit">
 
-      <label>Change photo of the meal kit</label><br>
-      <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
+         <label>Change photo of the meal kit</label><br>
+         <input type="file" name="photo" accept="image/*" id="photo"> <br><br>
 
-   </div>
-
-   <div class="submitBtn">
-      <input type="submit"  id="submit" value="Update">
-   </div>
-
-   </form>
-   {{else}}
-                    {{>food this}}
       </div>
 
+      <div class="submitBtn">
+         <input type="submit"  name="submit" value="Update">
+      </div>
 
-   {{/if}}
-
-
-    {{/each}} 
-
+   </form>
+</div>
+{{/each}} 
 </div>

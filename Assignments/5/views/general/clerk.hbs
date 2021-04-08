@@ -1,10 +1,17 @@
 <h3>CLERK</h3>
 
+{{#if user.clerk}}
+
 <section class="addMealKit">
 
         {{#each errors}}
             <p style="color: red;">{{this}}</p>
         {{/each}}
+
+        {{#each result}}
+           <p style="color: red;">{{this}}</p>
+        {{/each}}
+
     
     <form action="/load-data/meal-kits" method="POST" enctype="multipart/form-data">
 
@@ -111,11 +118,10 @@
             <input type="submit" value="Add the meal">
         </div>
 
-        {{#each result}}
-           <p style="color: red;">{{this}}</p>
-        {{/each}}
 
 
     </form>
 
 </section>
+{{else}} <h3>Only Clerk can access this page</h3>
+{{/if}}

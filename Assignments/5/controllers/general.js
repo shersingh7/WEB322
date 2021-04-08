@@ -42,16 +42,13 @@ router.get("/onTheMenu", function(req, res){
     .then((starterData) => {
        
       starterData = starterData.map(value => value.toObject());
-  
-      res.render("../views/general/onTheMenu", {
-        classic: classicData,
-        starter: starterData,
 
+          res.render("../views/general/onTheMenu", {
+            classic: classicData,
+            starter: starterData
+          });
+        });
       });
-
-    });
-
-  });
 
 });
 

@@ -2,20 +2,11 @@ const express = require('express');
 const bcrypt = require("bcryptjs");
 const path = require("path");
 const foodItemsModule = require("../models/foodItemsLists");
+const { userInfo } = require('os');
 const router = express.Router();
 
 router.get("/meal-kits", (req, res) => {
-   if(global.userType === 'clerk') res.render("general/clerk");
-   else 
-   {
-       let errors=[];
-       errors.push("Only clerk can access this")
-  
-    res.render("general/login", {
-        errors
-
-    });  
-   }
+  res.render("general/clerk");
 });
 
 router.post("/meal-kits", (req, res) => {
@@ -100,28 +91,67 @@ router.post("/meal-kits", (req, res) => {
 
 router.post("/update", (req, res) => {
 
-    foodItemsModule.updateOne({
-        _id: req.body.id,
-    }, {
-        $set: {
-            title: req.body.title,
-            wIncluded: req.body.wIncluded,
-            description: req.body.description,
-            price: req.body.price,
-            cookingTime: req.body.cookingTime,
-            servings: req.body.servings,
-            calories: req.body.calories,
-        }
-    })
-    .exec()
-    .then(() => {
-        console.log("Successfully updated the Meal: " + req.body.title);
-        res.redirect("/"); // Redirect back to the home page
-    })
-    .catch((err)=>{
-        console.log(`Error updating meal to the database.  ${err}`);
+    if(typeof (req.session.user) === 'undefined')
+    {
+        let result = [];
+        result.push("Only clerk can update");
+        console.log("login to update");
 
-    })
+
+        res.render("general/onTheMenu",{
+            result
+        });
+    }
+    else
+    {
+        if(req.session.user.clerk == 'clerk')
+        {
+            foodItemsModule.updateOne({
+            _id: req.body.id,
+            }, {
+            $set: {
+                title: req.body.title,
+                wIncluded: req.body.wIncluded,
+                description: req.body.description,
+                price: req.body.price,
+                cookingTime: req.body.cookingTime,
+                servings: req.body.servings,
+                calories: req.body.calories,
+            }
+            })
+            .exec()
+            .then(() => {
+                console.log("Successfully updated the Meal: " + req.body.title);
+
+                let result = [];
+                result.push("Successfully updated the Meal: " + req.body.title);
+
+                res.render("general/onTheMenu",{
+                    result
+                });
+
+            })
+            .catch((err)=>{
+                console.log(`Error updating meal to the database.  ${err}`);
+
+            })
+        }
+        else
+        {
+            let result = [];
+            result.push("Only clerk can update");
+            console.log("Only clerk can update");
+
+
+            res.render("general/onTheMenu",{
+                result
+            });
+        }
+    
+    
+    }
+    
+
     
 });
 
