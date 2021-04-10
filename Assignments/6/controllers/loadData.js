@@ -91,22 +91,7 @@ router.post("/meal-kits", (req, res) => {
 
 router.post("/update", (req, res) => {
 
-    if(typeof (req.session.user) === 'undefined')
-    {
-        let result = [];
-        result.push("Only clerk can update");
-        console.log("login to update");
-
-
-        res.render("general/onTheMenu",{
-            result
-        });
-    }
-    else
-    {
-        if(req.session.user.clerk == 'clerk')
-        {
-            foodItemsModule.updateOne({
+    foodItemsModule.updateOne({
             _id: req.body.id,
             }, {
             $set: {
@@ -126,7 +111,7 @@ router.post("/update", (req, res) => {
                 let result = [];
                 result.push("Successfully updated the Meal: " + req.body.title);
 
-                res.render("general/onTheMenu",{
+                res.render("general/onTheMenuClerk",{
                     result
                 });
 
@@ -135,25 +120,57 @@ router.post("/update", (req, res) => {
                 console.log(`Error updating meal to the database.  ${err}`);
 
             })
-        }
-        else
-        {
-            let result = [];
-            result.push("Only clerk can update");
-            console.log("Only clerk can update");
-
-
-            res.render("general/onTheMenu",{
-                result
-            });
-        }
-    
-    
-    }
-    
-
-    
 });
+
+router.get("/:title", (req,res)=>{
+    foodItemsModule.find({title: req.params.title})
+    .exec()
+    .then((mealKit)=>{
+        mealKit = mealKit.map(value => value.toObject());
+        res.render("../views/general/desc",{
+            kit: mealKit
+        });
+    });
+});
+
+router.post("/addToCart/:title", (req,res)=>{
+    let errors = [];
+    if(req.session.user)
+    {
+            foodItemsModule.find({title: req.params.title})
+    .exec()
+    .then((mealKit)=>{
+        mealKit = mealKit.map(value => value.toObject());
+        req.session.user.cart.push(mealKit);
+        res.redirect("/load-data/shoppingCart");
+    });
+
+    }
+    else 
+    {
+        errors.push("You need to be logged in to buy!!!");
+  
+        res.render("general/login", {
+            errors
+        });
+    }
+
+
+});
+
+router.get("/shoppingCart", (req, res)=>{
+    let total=0;
+    req.session.user.cart.forEach(meal => total += meal.price);
+
+    console.log(req.session.user);
+    console.log(req.session.user.cart);
+    res.render("general/shoppingCart", {
+        user: req.session.user,
+       cart: req.session.user.cart,
+       totalPrice: total 
+    });
+
+})
 
 module.exports = router;  
 

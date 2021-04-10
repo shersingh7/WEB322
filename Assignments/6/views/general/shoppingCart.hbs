@@ -1,0 +1,6 @@
+{{#if user.cart}}
+    {{#each cart}}
+        {{>food this}}
+        <p>Price: {{totalPrice}}</p>
+    {{/each}}
+{{/if}}

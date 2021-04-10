@@ -7,14 +7,24 @@
     </div>
     
     <div class="links">
-        <a href="/onTheMenu">ON THE MENU</a>
+        {{#if user.clerk}}
+            <a href="/onTheMenuClerk">ON THE MENU</a>
+        {{else}}
+            <a href="/onTheMenu">ON THE MENU</a>
+        {{/if}}
         <a href="">PRICING</a>
         <a href="">BLOG</a>
         <a href="">FAQ</a>
         <a href="">ANNE-MARIE WITENSHAW</a>
         <a href="">GIFT CARDS</a>
         <a href="">BREAKFAST</a>
-        <a href="/load-data/meal-kits">ADD MEAL KITS</a>
+        {{#if user.clerk}}
+                <a href="/load-data/meal-kits">ADD MEAL KITS</a>
+        {{/if}}
+        {{#if user.customer}}
+                <a href="/load-data/meal-kits">SHOPPING CART</a>
+        {{/if}}
+
          {{#if user}}
             <p style="margin-left: 0px;margin-bottom:3px ;">Hello {{user.fname}} {{user.lname}}!  <button onclick="document.location='/login/logout' "style="float: right;margin-top: 0px;">Logout</button></p>
         {{else}}

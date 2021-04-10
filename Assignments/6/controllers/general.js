@@ -52,6 +52,29 @@ router.get("/onTheMenu", function(req, res){
 
 });
 
+router.get("/onTheMenuClerk", function(req, res){
+
+  foodItemsModule.find({category: 'classic'})
+  .exec()
+  .then((classicData) => {
+     
+    classicData = classicData.map(value => value.toObject());
+
+    foodItemsModule.find({category: 'starter'})
+    .exec()
+    .then((starterData) => {
+       
+      starterData = starterData.map(value => value.toObject());
+
+          res.render("../views/general/onTheMenuClerk", {
+            classic: classicData,
+            starter: starterData
+          });
+        });
+      });
+
+});
+
 router.get("/welcome", function(req, res){
   res.render("general/welcome");
 });
