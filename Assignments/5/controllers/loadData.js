@@ -91,22 +91,7 @@ router.post("/meal-kits", (req, res) => {
 
 router.post("/update", (req, res) => {
 
-    if(typeof (req.session.user) === 'undefined')
-    {
-        let result = [];
-        result.push("Only clerk can update");
-        console.log("login to update");
-
-
-        res.render("general/onTheMenu",{
-            result
-        });
-    }
-    else
-    {
-        if(req.session.user.clerk == 'clerk')
-        {
-            foodItemsModule.updateOne({
+    foodItemsModule.updateOne({
             _id: req.body.id,
             }, {
             $set: {
@@ -126,7 +111,7 @@ router.post("/update", (req, res) => {
                 let result = [];
                 result.push("Successfully updated the Meal: " + req.body.title);
 
-                res.render("general/onTheMenu",{
+                res.render("general/onTheMenuClerk",{
                     result
                 });
 
@@ -135,24 +120,6 @@ router.post("/update", (req, res) => {
                 console.log(`Error updating meal to the database.  ${err}`);
 
             })
-        }
-        else
-        {
-            let result = [];
-            result.push("Only clerk can update");
-            console.log("Only clerk can update");
-
-
-            res.render("general/onTheMenu",{
-                result
-            });
-        }
-    
-    
-    }
-    
-
-    
 });
 
 module.exports = router;  

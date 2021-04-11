@@ -67,18 +67,24 @@ router.get("/", function(req, res){
                         req.session.user = {
                        fname: newName.fname,
                        lname: newName.lname,
-                       clerk: req.body.type
+                       clerk: req.body.type,
+                       cart: []
                        };
-                      }
-                      else req.session.user = newName;
 
-
-                    
-                     if (req.body.type == 'clerk') 
-                     {
                        res.redirect("/load-data/meal-kits");
+
                       }
-                     if (req.body.type == 'customer') res.redirect("/customer");
+                      else if(req.body.type == 'customer')
+                      {
+                        req.session.user = {
+                          fname: newName.fname,
+                          lname: newName.lname,
+                          customer: req.body.type,
+                          cart: []
+                          };
+
+                        res.redirect("/customer");
+                      }
                     
                   }
                   else {
