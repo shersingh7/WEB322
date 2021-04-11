@@ -142,7 +142,7 @@ router.post("/addToCart/:title", (req,res)=>{
     .then((mealKit)=>{
         mealKit = mealKit.map(value => value.toObject());
         req.session.user.cart.push(mealKit);
-        res.redirect("/load-data/shoppingCart");
+        res.redirect("/shoppingCart");
     });
 
     }
@@ -158,19 +158,20 @@ router.post("/addToCart/:title", (req,res)=>{
 
 });
 
-router.get("/shoppingCart", (req, res)=>{
+/*router.get("/shoppingCart", (req, res)=>{
     let total=0;
     req.session.user.cart.forEach(meal => total += meal.price);
+    console.log("Hello");
 
     console.log(req.session.user);
     console.log(req.session.user.cart);
-    res.render("general/shoppingCart", {
+    res.render("../views/general/shoppingCart", {
         user: req.session.user,
        cart: req.session.user.cart,
        totalPrice: total 
     });
 
-})
+})*/
 
 module.exports = router;  
 
