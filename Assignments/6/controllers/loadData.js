@@ -1,9 +1,15 @@
 const express = require('express');
-const bcrypt = require("bcryptjs");
 const path = require("path");
 const foodItemsModule = require("../models/foodItemsLists");
-const { userInfo } = require('os');
 const router = express.Router();
+
+let total=0; // Total price for shopping cart
+
+const findMeal = function(id) {
+    return foodItemsModule.find((meal) => { 
+        return meal.id == id
+    });
+};
 
 router.get("/meal-kits", (req, res) => {
   res.render("general/clerk");
@@ -23,7 +29,6 @@ router.post("/meal-kits", (req, res) => {
         servings: req.body.servings,
         calories: req.body.calories,
         topMeal: req.body.topMeal,
-        //photo: req.body.photo
     });
 
         // Search MongoDB for a document with the matching email address.
@@ -89,6 +94,17 @@ router.post("/meal-kits", (req, res) => {
         });
 });
 
+router.get("/shoppingCart", (req, res)=>{
+    
+    req.session.user.cart.forEach(meal => {total += meal.price; console.log(`shopping cart`); console.log(meal.price); console.log(meal)});
+
+    res.render("general/shoppingCart", {
+        cart: req.session.user.cart,
+       totalPrice: total.toFixed(2) 
+    });
+
+});
+
 router.post("/update", (req, res) => {
 
     foodItemsModule.updateOne({
@@ -137,14 +153,13 @@ router.post("/addToCart/:title", (req,res)=>{
     let errors = [];
     if(req.session.user)
     {
-            foodItemsModule.find({title: req.params.title})
-    .exec()
-    .then((mealKit)=>{
-        mealKit = mealKit.map(value => value.toObject());
-        req.session.user.cart.push(mealKit);
-        res.redirect("/shoppingCart");
-    });
-
+        foodItemsModule.find({title: req.params.title})
+        .exec()
+        .then((mealKit)=>{
+            let toBeCarted = mealKit.map(value => value.toObject());
+            req.session.user.cart.push(toBeCarted[0]);
+            res.redirect("/load-data/shoppingCart");
+        });
     }
     else 
     {
@@ -158,20 +173,6 @@ router.post("/addToCart/:title", (req,res)=>{
 
 });
 
-/*router.get("/shoppingCart", (req, res)=>{
-    let total=0;
-    req.session.user.cart.forEach(meal => total += meal.price);
-    console.log("Hello");
-
-    console.log(req.session.user);
-    console.log(req.session.user.cart);
-    res.render("../views/general/shoppingCart", {
-        user: req.session.user,
-       cart: req.session.user.cart,
-       totalPrice: total 
-    });
-
-})*/
 
 module.exports = router;  
 

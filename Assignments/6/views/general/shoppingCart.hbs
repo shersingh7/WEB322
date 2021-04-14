@@ -1,7 +1,13 @@
-{{!-- {{#if user.cart}} --}}
-<h3>hello</h3>
-    {{#each cart}}
+{{#each user.cart}}
         {{>food this}}
-        <p>Price: {{totalPrice}}</p>
-    {{/each}}
-{{!-- {{/if}} --}}
+{{/each}}
+
+<br>
+<p>Total Cart Price: {{totalPrice}}</p>
+
+
+{{#if user}} 
+
+{{else}}
+<h3>You have nothing in your cart</h3>
+{{/if}}
