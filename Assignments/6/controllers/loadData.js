@@ -173,6 +173,60 @@ router.post("/addToCart/:title", (req,res)=>{
 
 });
 
+router.post("/check-out", (req, res) => {
+    let result = [];
+    console.log("Thank you for shopping with us!!!");
+    result.push("Thank you for shopping with us!!!");
+
+
+    let orderDetails = 
+    `<table>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>`;
+
+    req.session.user.cart.forEach(mealKit =>{
+        orderDetails += 
+        `<tr>
+            <td>${mealKit.title}</td>
+            <td>${mealKit.description}</td>
+            <td>${mealKit.price}</td>
+        </tr>`;
+    });
+
+    orderDetails += `</table>`;
+
+    const sgMail = require("@sendgrid/mail");
+    sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
+
+    const msg = {
+        to: req.session.user.email,
+        from: "dverma22@myseneca.ca",
+        subject: "Contact Us Form Submission",
+        html:
+            ` <p>You have place the order for</p>
+            ${orderDetails}
+            <p>The total price is ${total}</p>`
+    };
+      // Asyncronously sends the email message.
+      sgMail.send(msg)
+      .then(() => {
+        req.session.user.cart = [];
+        total = 0;
+        res.render("general/shoppingCart",{
+            result: result
+        });
+          })
+      .catch(err => {
+          console.log(`Error ${err}`);
+          res.send(`CANT SEND EMAIL:- ${err}`);
+      }); 
+
+
+  });
+
 
 module.exports = router;  
 
