@@ -2,19 +2,24 @@
         <p style="color: red;">{{this}}</p>
 {{/each}}
 
-{{#each user.cart}}
-        {{>food this}}
+{{#each cart}}
+            <div class="grid">
+               <img src="/{{photo}}"> 
+                 {{>food}}
+                 <p>Quantity: {{qty}}</p>
+            </div>
 {{/each}}
 
 {{#if result}}
 {{else}}
 <br>
 <p>Total Cart Price: {{totalPrice}}</p>
-{{/if}}
 
  <form method="POST" action="/load-data/check-out">
         <input type="submit" value="CheckOut"/>
 </form>
+{{/if}}
+
 {{#if user}} 
 
 {{else}}

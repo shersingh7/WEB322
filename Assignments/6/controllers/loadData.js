@@ -1,15 +1,10 @@
 const express = require('express');
 const path = require("path");
+const { REPLServer } = require('repl');
 const foodItemsModule = require("../models/foodItemsLists");
 const router = express.Router();
 
 let total=0; // Total price for shopping cart
-
-const findMeal = function(id) {
-    return foodItemsModule.find((meal) => { 
-        return meal.id == id
-    });
-};
 
 router.get("/meal-kits", (req, res) => {
   res.render("general/clerk");
@@ -96,7 +91,7 @@ router.post("/meal-kits", (req, res) => {
 
 router.get("/shoppingCart", (req, res)=>{
     
-    req.session.user.cart.forEach(meal => {total += meal.price; console.log(`shopping cart`); console.log(meal.price); console.log(meal)});
+    req.session.user.cart.forEach(meal => {total += meal.price;});
 
     res.render("general/shoppingCart", {
         cart: req.session.user.cart,
@@ -139,6 +134,8 @@ router.post("/update", (req, res) => {
 });
 
 router.get("/:title", (req,res)=>{
+
+  
     foodItemsModule.find({title: req.params.title})
     .exec()
     .then((mealKit)=>{
@@ -150,16 +147,72 @@ router.get("/:title", (req,res)=>{
 });
 
 router.post("/addToCart/:title", (req,res)=>{
+    
     let errors = [];
     if(req.session.user)
     {
+        if(req.session.user.cart[0])
+        {
+            if(req.session.user.cart[0].title === req.params.title) 
+            {
+                req.session.user.cart[0].qty++;
+                res.redirect("/load-data/shoppingCart");
+            }
+            else 
+            {
+                foodItemsModule.find({title: req.params.title})
+                .exec()
+                .then((mealKit)=>{
+                    req.session.cart = req.session.cart || [];
+                   
+                    let toBeCarted = mealKit.map(value => {
+                        return {
+                            title: value.title,
+                            wIncluded: value.wIncluded,
+                            description: value.description,
+                            category: value.category,
+                            price: value.price,
+                            cookingTime: value.cookingTime,
+                            servings: value.servings,
+                            calories: value.calories,
+                            photo: value.photo,
+                            qty: 1
+                        }
+                    });
+                    req.session.user.cart.push(toBeCarted[0]);
+                    res.redirect("/load-data/shoppingCart");
+                    
+                });
+            }
+        }
+        else
+        {
+            
         foodItemsModule.find({title: req.params.title})
         .exec()
         .then((mealKit)=>{
-            let toBeCarted = mealKit.map(value => value.toObject());
+            req.session.cart = req.session.cart || [];
+           
+            let toBeCarted = mealKit.map(value => {
+                return {
+                    title: value.title,
+                    wIncluded: value.wIncluded,
+                    description: value.description,
+                    category: value.category,
+                    price: value.price,
+                    cookingTime: value.cookingTime,
+                    servings: value.servings,
+                    calories: value.calories,
+                    photo: value.photo,
+                    qty: 1
+                }
+            });
             req.session.user.cart.push(toBeCarted[0]);
             res.redirect("/load-data/shoppingCart");
+            
         });
+        
+    }
     }
     else 
     {
@@ -183,8 +236,9 @@ router.post("/check-out", (req, res) => {
     `<table>
         <tr>
             <th>Name</th>
-            <th>Description</th>
+            <th>        Description     </th>
             <th>Price</th>
+            <th>Quantity</th>
         </tr>`;
 
     req.session.user.cart.forEach(mealKit =>{
@@ -193,10 +247,10 @@ router.post("/check-out", (req, res) => {
             <td>${mealKit.title}</td>
             <td>${mealKit.description}</td>
             <td>${mealKit.price}</td>
-        </tr>`;
+            <td>${mealKit.qty}</td>
+        </tr>
+        </table>`;
     });
-
-    orderDetails += `</table>`;
 
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
