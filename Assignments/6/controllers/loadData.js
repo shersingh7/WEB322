@@ -2,6 +2,7 @@ const express = require('express');
 const path = require("path");
 const { REPLServer } = require('repl');
 const foodItemsModule = require("../models/foodItemsLists");
+const NameModel = require('../models/registration');
 const router = express.Router();
 
 let total=0; // Total price for shopping cart
@@ -149,16 +150,22 @@ router.get("/:title", (req,res)=>{
 router.post("/addToCart/:title", (req,res)=>{
     
     let errors = [];
+    let found = false;
     if(req.session.user)
     {
         if(req.session.user.cart[0])
         {
-            if(req.session.user.cart[0].title === req.params.title) 
+            for(var meal in req.session.user.cart)
             {
-                req.session.user.cart[0].qty++;
-                res.redirect("/load-data/shoppingCart");
+                if(req.session.user.cart[meal].title === req.params.title) 
+                {
+                    req.session.user.cart[meal].qty++;
+                    found = true;
+                    res.redirect("/load-data/shoppingCart");
+                    return;
+                }
             }
-            else 
+            if(found != true)
             {
                 foodItemsModule.find({title: req.params.title})
                 .exec()
@@ -181,38 +188,39 @@ router.post("/addToCart/:title", (req,res)=>{
                     });
                     req.session.user.cart.push(toBeCarted[0]);
                     res.redirect("/load-data/shoppingCart");
-                    
                 });
+
+                    
             }
         }
         else
         {
             
-        foodItemsModule.find({title: req.params.title})
-        .exec()
-        .then((mealKit)=>{
-            req.session.cart = req.session.cart || [];
-           
-            let toBeCarted = mealKit.map(value => {
-                return {
-                    title: value.title,
-                    wIncluded: value.wIncluded,
-                    description: value.description,
-                    category: value.category,
-                    price: value.price,
-                    cookingTime: value.cookingTime,
-                    servings: value.servings,
-                    calories: value.calories,
-                    photo: value.photo,
-                    qty: 1
-                }
-            });
-            req.session.user.cart.push(toBeCarted[0]);
-            res.redirect("/load-data/shoppingCart");
+            foodItemsModule.find({title: req.params.title})
+            .exec()
+            .then((mealKit)=>{
+                req.session.cart = req.session.cart || [];
             
-        });
-        
-    }
+                let toBeCarted = mealKit.map(value => {
+                    return {
+                        title: value.title,
+                        wIncluded: value.wIncluded,
+                        description: value.description,
+                        category: value.category,
+                        price: value.price,
+                        cookingTime: value.cookingTime,
+                        servings: value.servings,
+                        calories: value.calories,
+                        photo: value.photo,
+                        qty: 1
+                    }
+                });
+                req.session.user.cart.push(toBeCarted[0]);
+                res.redirect("/load-data/shoppingCart");
+       
+            });
+
+        }
     }
     else 
     {
