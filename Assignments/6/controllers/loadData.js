@@ -241,24 +241,25 @@ router.post("/check-out", (req, res) => {
 
 
     let orderDetails = 
-    `<table>
+    `<table style="border-spacing: 20px">
         <tr>
-            <th>Name</th>
+            <th>        Name        </th>
             <th>        Description     </th>
-            <th>Price</th>
-            <th>Quantity</th>
+            <th>        Price       </th>
+            <th>        Quantity        </th>
         </tr>`;
 
     req.session.user.cart.forEach(mealKit =>{
         orderDetails += 
         `<tr>
-            <td>${mealKit.title}</td>
-            <td>${mealKit.description}</td>
-            <td>${mealKit.price}</td>
-            <td>${mealKit.qty}</td>
-        </tr>
-        </table>`;
+            <td>    ${mealKit.title}    </td>
+            <td>    ${mealKit.description}  </td>
+            <td>    ${mealKit.price}    </td>
+            <td>    ${mealKit.qty}  </td>
+        </tr>`;
     });
+
+    orderDetails += `</table>`;
 
     const sgMail = require("@sendgrid/mail");
     sgMail.setApiKey(process.env.SEND_GRID_API_KEY);
